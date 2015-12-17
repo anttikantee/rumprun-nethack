@@ -1,0 +1,46 @@
+#
+# NetHack 3.6  linux $NHDT-Date: 1432512814 2015/05/25 00:13:34 $  $NHDT-Branch: master $:$NHDT-Revision: 1.12 $
+# Copyright (c) Kenneth Lorber, Kensington, Maryland, 2007.
+# NetHack may be freely redistributed.  See license for details. 
+#
+#-PRE
+# Rumprun unikernel hints file
+# This hints file provides a single-user tty build for Rumprun
+
+
+#PREFIX=/usr
+PREFIX=/etc/nethack
+HACKDIR=$(PREFIX)/games/lib/$(GAME)dir
+INSTDIR=$(HACKDIR)
+VARDIR = $(HACKDIR)
+
+
+
+POSTINSTALL=cp -n sys/unix/sysconf $(INSTDIR)/sysconf; $(CHOWN) $(GAMEUID) $(INSTDIR)/sysconf; $(CHGRP) $(GAMEGRP) $(INSTDIR)/sysconf; chmod $(VARFILEPERM) $(INSTDIR)/sysconf;
+
+# NO_SIGNAL doesn't build
+#CFLAGS+=-DNO_SIGNAL
+
+CFLAGS=-g -O2 -I../include -DNOMAIL -DNOSHELL -DNOTPARMDECL $(CFLAGS1) -DDLB
+CFLAGS+=-DSYSCF -DSYSCF_FILE=\"$(HACKDIR)/sysconf\" -DSECURE
+CFLAGS+=-DHACKDIR=\"$(HACKDIR)\"
+
+CFLAGS+=-DZLIB_COMP
+
+LINK=$(CC)
+
+WINSRC = $(WINTTYSRC)
+WINOBJ = $(WINTTYOBJ)
+WINLIB = $(WINTTYLIB)
+
+WINTTYLIB=-lcurses -lterminfo
+
+# XXX: belongs in LIBS, but seems like LIBS is overriden by Makefile
+WINTTYLIB+=-lz
+
+CHOWN=true
+CHGRP=true
+
+VARDIRPERM = 0755
+VARFILEPERM = 0600
+GAMEPERM = 0755
