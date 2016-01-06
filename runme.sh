@@ -32,7 +32,7 @@ type qemu-system-x86_64 >/dev/null 2>&1 || die qemu-system-x86_64 required
 
 # always fsck if fsck.ext2 is available on the host, never otherwise
 if type fsck.ext2 >/dev/null 2>&1; then
-	fsck.ext2 -p ${IMG}
+	fsck.ext2 -p ${IMG} || true
 fi
 
 qemu-system-x86_64 -drive if=virtio,file=${IMG} ${*} -kernel ${BIN}
