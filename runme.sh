@@ -35,4 +35,4 @@ if type fsck.ext2 >/dev/null 2>&1; then
 	fsck.ext2 -p ${IMG} || true
 fi
 
-qemu-system-x86_64 -drive if=virtio,file=${IMG} ${*} -kernel ${BIN}
+qemu-system-x86_64 -s -drive if=virtio,file=${IMG} ${*} -kernel ${BIN}
