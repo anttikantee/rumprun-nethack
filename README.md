@@ -1,3 +1,10 @@
+Quickstart:
+
+Pull repo and run: `./runme.sh`
+
+You'll be in the game a few seconds later (it takes a few seconds to
+uncompress the images).
+
 ### What?
 
 [NetHack](http://nethack.org/) is probably the first game in the world to
